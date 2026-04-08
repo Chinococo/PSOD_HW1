@@ -4,15 +4,14 @@
 
 #ifndef PSOD_HW1_GATEAND_H
 #define PSOD_HW1_GATEAND_H
-#include "../Basic/Device.h"
-
+#include "../basic/Device.h"
 
 class gateAND:public Device{
     public:
         gateAND():Device(){}
         gateAND(Device * d) : Device(d){}
-        gateAND(const vector<Device *>& _iPins) : Device(_iPins){}
-        vector<bool> getOutput() override;
+        gateAND(const std::vector<Device *>& _iPins) : Device(_iPins){}
+        std::vector<bool> getOutput() override;
 };
 
 

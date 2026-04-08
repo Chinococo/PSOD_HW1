@@ -5,24 +5,25 @@
 #ifndef PSOD_HW1_DEVICE_H
 #define PSOD_HW1_DEVICE_H
 #include <vector>
-using namespace std;
+#include <stdexcept>
+
 
 class Device {
 
 protected:
-    vector<Device *> iPins;
+    std::vector<Device *> iPins;
 public:
     Device(){};
     Device(Device *_iPin) {
         Device::addInputPin(_iPin);
     }
-    Device(const vector<Device *>& _iPins) {
+    Device(const std::vector<Device *>& _iPins) {
         for (Device * _iPin : _iPins)
             Device::addInputPin(_iPin);
     }
 
     void addInputPin(Device *iPin);
-    virtual vector<bool> getOutput() = 0;
+    virtual std::vector<bool> getOutput() = 0;
 };
 
 

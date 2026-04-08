@@ -1,22 +1,13 @@
 #include <iostream>
 
-#include "include/Model/Gates/gateAND.h"
-#include "include/Model/Basic/iPin.h"
-
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-
-int main() {
-   for (int i = 0; i < 16; i++) {
-      gateAND gateAND ;
-      int testSignal = i;
-      gateAND.addInputPin(new iPin(testSignal&1));
-      testSignal = testSignal>>1;
-      gateAND.addInputPin(new iPin(testSignal&1));
-      testSignal = testSignal>>1;
-      gateAND.addInputPin(new iPin(testSignal&1));
-      testSignal = testSignal>>1;
-      gateAND.addInputPin(new iPin(testSignal&1));
-
-     cout<< i <<" "<< gateAND.getOutput()[0] << endl;
-   }
+#include "include/model/gates/gateAND.h"
+#include "include/model/basic/iPin.h"
+#include <gtest/gtest.h>
+using namespace std;
+int StartTest(int argc, char **argv) {
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+int main(int argc, char **argv) {
+   return StartTest(argc,argv);
 }

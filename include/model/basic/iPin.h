@@ -4,17 +4,15 @@
 
 #ifndef PSOD_HW1_IPIN_H
 #define PSOD_HW1_IPIN_H
-#include <vector>
-#include <stdexcept>
 #include "Device.h"
-#include "oPin.h"
-using namespace std;
+
 
 class iPin : public Device {
-    vector<bool> output;
+    std::vector<bool> output;
 public:
+    iPin():Device(){};
     iPin(bool);
-    vector<bool> getOutput() override;
+    std::vector<bool> getOutput() override;
 };
 
 
