@@ -2,7 +2,7 @@
 // Created by Chino on 2026/4/9.
 //
 
-#include "iPin.h"
+#include "../../../include/Model/Basic/iPin.h"
 
 iPin::iPin(bool _input) {
     this->output = {_input};

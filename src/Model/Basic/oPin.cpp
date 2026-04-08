@@ -2,7 +2,7 @@
 // Created by Chino on 2026/4/9.
 //
 
-#include "oPin.h"
+#include "../../../include/Model/Basic/oPin.h"
 oPin::oPin(bool _input) {
     this->output = {_input};
 }

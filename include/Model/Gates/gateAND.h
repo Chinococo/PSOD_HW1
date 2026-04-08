@@ -4,7 +4,7 @@
 
 #ifndef PSOD_HW1_GATEAND_H
 #define PSOD_HW1_GATEAND_H
-#include "Device.h"
+#include "../Basic/Device.h"
 
 
 class gateAND:public Device{

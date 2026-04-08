@@ -2,9 +2,8 @@
 // Created by Chino on 2026/4/9.
 //
 
-#include "gateAND.h"
-
-#include "oPin.h"
+#include "../../../include/Model/Gates/gateAND.h"
+#include "../../../include/Model/Basic/oPin.h"
 
 vector<bool> gateAND::getOutput(){
     bool result = true;
