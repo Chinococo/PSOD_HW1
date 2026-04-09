@@ -23,7 +23,9 @@ file(GLOB_RECURSE SRC_FILES "src/*.cpp")
 file(GLOB_RECURSE HDR_FILES "include/*.h")
 file(GLOB_RECURSE HDR_FILES "test/*.cpp")
 
-add_executable(PSOD_HW1 main.cpp ${SRC_FILES} ${HDR_FILES})
+add_executable(PSOD_HW1 main.cpp ${SRC_FILES} ${HDR_FILES}
+        src/control/LogicSimulator.cpp
+        include/control/LogicSimulator.h)
 
 target_include_directories(PSOD_HW1 PRIVATE include)
 
