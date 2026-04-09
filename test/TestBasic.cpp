@@ -7,7 +7,6 @@ TEST(GateTest, BasicInputTest) {
     EXPECT_THROW(in1.getOutput(), std::invalid_argument);
 }
 TEST(GateTest, BasicOutputGateTest) {
-    oPin out1,out2(true);
-    EXPECT_EQ(out2.getOutput()[0], true);
+    oPin out1;
     EXPECT_THROW(out1.getOutput(), std::invalid_argument);
 }

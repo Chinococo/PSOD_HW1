@@ -3,7 +3,7 @@
 //
 
 #include "../../../include/model/basic/oPin.h"
-oPin::oPin(bool _input) {
+oPin::oPin(Device * _input) {
     this->output = {_input};
 }
 
@@ -11,5 +11,5 @@ std::vector<bool> oPin::getOutput() {
     if (output.empty()) {
         throw std::invalid_argument("Doesn't have output signal");
     }
-    return this->output;
+    return this->output[0]->getOutput();
 }

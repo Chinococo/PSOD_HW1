@@ -8,10 +8,10 @@
 
 
 class oPin : public Device {
-    std::vector<bool> output;
+    std::vector<Device *> output;
 public:
     oPin():Device(){};
-    oPin(bool);
+    oPin(Device *);
     std::vector<bool> getOutput() override;
 };
 
