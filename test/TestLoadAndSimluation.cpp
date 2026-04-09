@@ -26,3 +26,13 @@ TEST(GateTest, TestLoadExample1Simulation) {
     EXPECT_EQ(simulator.getSimulationResult({new iPin(1), new iPin(1), new iPin(1)}), "0");
 
 }
+TEST(GateTest, TestLoadBroken) {
+    LogicSimulator simulator;
+    EXPECT_THROW(simulator.load("static/illegal1.lcf"), std::invalid_argument);
+    EXPECT_THROW(simulator.load("static/illegal2.lcf"), std::invalid_argument);
+
+}
+TEST(GateTest, TestFileIsNotExist) {
+    LogicSimulator simulator;
+    EXPECT_EQ(simulator.load("static/fuck.lcf"), false);
+}

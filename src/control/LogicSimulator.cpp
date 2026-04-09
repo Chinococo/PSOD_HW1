@@ -22,21 +22,7 @@ std::string LogicSimulator::getSimulationResult(std::vector<Device *> _inputs) {
             *targetPin = *sourcePin;
         }
     }
-    bool evaluated[1001];
-    int count = 0;
-    memset(evaluated, false, sizeof(evaluated));
-    do {
-        for (size_t i = 0; i < circuit.size(); i++) {
-            try {
-                if (!evaluated[i]) {
-                    bool test = circuit[i]->getOutput()[0];
-                    evaluated[i] = true;
-                    count++;
-                }
-            } catch (std::exception &e) {
-            }
-        }
-    } while (count < circuit.size());
+
     return std::to_string(oPins[0]->getOutput()[0]);
 }
 
@@ -45,6 +31,11 @@ std::string LogicSimulator::getTruthTable() {
 }
 
 bool LogicSimulator::load(std::string path) {
+    /*Init local variable*/
+    circuit.clear();
+    iPins.clear();
+    oPins.clear();
+
     std::ifstream inFile;
     inFile.open(path, std::ios::in);
     if (inFile) {
@@ -73,19 +64,23 @@ bool LogicSimulator::load(std::string path) {
             std::set<int> possible;
             for (int i = 0; i < circuit.size(); i++)
                 possible.insert(i);
-            for (int i=0,circuit_index=0;i<pins.size();i++) {
+            for (int i = 0, circuit_index = 0; i < pins.size(); i++) {
                 if (pins[i])
                     if (abs(pins[i]) == floor(abs(pins[i]))) {
                         int index = (int) floor(abs(pins[i]));
+                        if (index-1 >= iPins.size())
+                            throw std::invalid_argument("Wrong Input index");
                         circuit[circuit_index]->addInputPin(iPins[index - 1]); //要減1是因為他從1開始
                     } else {
                         int index = (int) floor(abs(pins[i]));
+                        if (index-1 >= circuit.size())
+                            throw std::invalid_argument("Wrong Circuit Output index");
                         circuit[circuit_index]->addInputPin(circuit[index - 1]); //要減1是因為他從1開始
                         // 他不可能是輸出
-                        possible.erase(index-1);
+                        possible.erase(index - 1);
                     }
                 else
-                    circuit_index ++;
+                    circuit_index++;
             }
             // 題目規定只有一個 可擴充
             oPins.push_back(new oPin(circuit[*possible.begin()]));
