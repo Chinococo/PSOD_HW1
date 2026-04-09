@@ -12,6 +12,7 @@
 #include <fstream>
 
 #include "model/gates/gateOR.h"
+#include <set>
 
 std::string LogicSimulator::getSimulationResult(std::vector<Device *> _inputs) {
     for (size_t i = 0; i < iPins.size(); i++) {
@@ -28,7 +29,7 @@ std::string LogicSimulator::getSimulationResult(std::vector<Device *> _inputs) {
         for (size_t i = 0; i < circuit.size(); i++) {
             try {
                 if (!evaluated[i]) {
-                    circuit[i]->getOutput()[0];
+                    bool test = circuit[i]->getOutput()[0];
                     evaluated[i] = true;
                     count++;
                 }
@@ -36,8 +37,6 @@ std::string LogicSimulator::getSimulationResult(std::vector<Device *> _inputs) {
             }
         }
     } while (count < circuit.size());
-
-
     return std::to_string(oPins[0]->getOutput()[0]);
 }
 
@@ -70,8 +69,10 @@ bool LogicSimulator::load(std::string path) {
                     pins.push_back(pin);
                 pins.push_back(0);
             }
-            oPins.push_back(circuit[NG-1]);
-
+            // 所有輸出可能性
+            std::set<int> possible;
+            for (int i = 0; i < circuit.size(); i++)
+                possible.insert(i);
             for (int i=0,circuit_index=0;i<pins.size();i++) {
                 if (pins[i])
                     if (abs(pins[i]) == floor(abs(pins[i]))) {
@@ -80,10 +81,14 @@ bool LogicSimulator::load(std::string path) {
                     } else {
                         int index = (int) floor(abs(pins[i]));
                         circuit[circuit_index]->addInputPin(circuit[index - 1]); //要減1是因為他從1開始
+                        // 他不可能是輸出
+                        possible.erase(index-1);
                     }
                 else
                     circuit_index ++;
             }
+            // 題目規定只有一個 可擴充
+            oPins.push_back(new oPin(circuit[*possible.begin()]));
         }
         inFile.close();
         return false;
