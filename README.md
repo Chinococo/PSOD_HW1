@@ -1,5 +1,6 @@
 # Pattern-Oriented Software Design Hw1
 ## File Architecture
+```
 ├─include               
 │  ├─model              
 │  │  ├─basic            (iPin/oPin 宣告)
@@ -21,7 +22,7 @@
 └─CMakeLists.txt         (專案設定檔)
 └─main.cpp               (手動程式進入點)
 └─test.cpp               (GTest程式進入點)
-
+```
 ## UML
 ```mermaid
 classDiagram
