@@ -1,4 +1,4 @@
-#include "control/LogicSimulator.h"
+#include "../include/model/LogicSimulator.h"
 #include "utils/FileUtil.h"
 #include <gtest/gtest.h>
 TEST(GateTest, TestUtilsFunction) {

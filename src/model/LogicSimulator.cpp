@@ -2,7 +2,7 @@
 // Created by Chino on 2026/4/9.
 //
 
-#include "../../include/control/LogicSimulator.h"
+#include "../../include/model/LogicSimulator.h"
 #include <math.h>
 #include "model/basic/oPin.h"
 #include "model/gates/gateNot.h"
@@ -22,8 +22,40 @@ std::string LogicSimulator::getSimulationResult(std::vector<Device *> _inputs) {
             *targetPin = *sourcePin;
         }
     }
+    std::string result="";
 
-    return std::to_string(oPins[0]->getOutput()[0]);
+    // 1. 產生表頭
+    for (size_t i = 0; i < iPins.size(); i++) {
+        result+="i ";
+    }
+    result+="| o\n";
+    for (size_t i = 0; i < iPins.size(); i++) {
+        result+=std::to_string(i+1)+" ";
+    }
+    result+="| 1\n";
+
+    // 2. 產生分隔線 (例如: -----------)
+    for (int i = 0; i < iPins.size() * 2 + 3; ++i) {
+        if (i==iPins.size() * 2)
+            result+="+";
+        else
+            result += "-";
+    }
+    result += "\n";
+    // 3. 產生數值行 (例如: 0 1 1 | 0)
+    for (size_t i = 0; i < iPins.size(); i++) {
+        // 取得每個輸入 pin 的目前狀態
+        result += std::to_string(iPins[i]->getOutput()[0]) + " ";
+    }
+
+    result += "| ";
+
+    // 取得第一個輸出 pin 的結果
+    if (!oPins.empty()) {
+        result += std::to_string(oPins[0]->getOutput()[0]);
+    }
+
+    return result;
 }
 
 std::string LogicSimulator::getTruthTable() {
@@ -62,7 +94,7 @@ std::string LogicSimulator::getTruthTable() {
         // 4. 呼叫你的模擬邏輯並取得結果
         std::string result = getSimulationResult(currentInputs);
 
-        truthTable += "| " + result;
+        truthTable += "| " + std::to_string(oPins[0]->getOutput()[0]);
         if (i!=pow(2,iPins.size())-1)
             truthTable+="\n";
     }
@@ -126,7 +158,7 @@ bool LogicSimulator::load(std::string path) {
             oPins.push_back(new oPin(circuit[*possible.begin()]));
         }
         inFile.close();
-        return false;
+        return true;
     }
     return false;
 }

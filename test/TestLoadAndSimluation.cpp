@@ -1,4 +1,4 @@
-#include "control/LogicSimulator.h"
+#include "../include/model/LogicSimulator.h"
 #include <gtest/gtest.h>
 
 #include "model/basic/iPin.h"
@@ -11,11 +11,10 @@
 TEST(GateTest, TestLoadXorSimulation) {
     LogicSimulator simulator;
     simulator.load("static/xor.lcf");
-
-    EXPECT_EQ(simulator.getSimulationResult({new iPin(0),new iPin(0)}), "0");
-    EXPECT_EQ(simulator.getSimulationResult({new iPin(0),new iPin(1)}), "1");
-    EXPECT_EQ(simulator.getSimulationResult({new iPin(1),new iPin(0)}), "1");
-    EXPECT_EQ(simulator.getSimulationResult({new iPin(1),new iPin(1)}), "0");
+    EXPECT_EQ(simulator.getSimulationResult({new iPin(0),new iPin(0)}), "i i | o\n1 2 | 1\n----+--\n0 0 | 0");
+    EXPECT_EQ(simulator.getSimulationResult({new iPin(0),new iPin(1)}), "i i | o\n1 2 | 1\n----+--\n0 1 | 1");
+    EXPECT_EQ(simulator.getSimulationResult({new iPin(1),new iPin(0)}), "i i | o\n1 2 | 1\n----+--\n1 0 | 1");
+    EXPECT_EQ(simulator.getSimulationResult({new iPin(1),new iPin(1)}), "i i | o\n1 2 | 1\n----+--\n1 1 | 0");
 
 }
 
@@ -23,14 +22,14 @@ TEST(GateTest, TestLoadExample1Simulation) {
     LogicSimulator simulator;
     simulator.load("static/example.lcf");
 
-    EXPECT_EQ(simulator.getSimulationResult({new iPin(0), new iPin(0), new iPin(0)}), "0");
-    EXPECT_EQ(simulator.getSimulationResult({new iPin(0), new iPin(0), new iPin(1)}), "0");
-    EXPECT_EQ(simulator.getSimulationResult({new iPin(0), new iPin(1), new iPin(0)}), "0");
-    EXPECT_EQ(simulator.getSimulationResult({new iPin(0), new iPin(1), new iPin(1)}), "0");
-    EXPECT_EQ(simulator.getSimulationResult({new iPin(1), new iPin(0), new iPin(0)}), "1");
-    EXPECT_EQ(simulator.getSimulationResult({new iPin(1), new iPin(0), new iPin(1)}), "1");
-    EXPECT_EQ(simulator.getSimulationResult({new iPin(1), new iPin(1), new iPin(0)}), "0");
-    EXPECT_EQ(simulator.getSimulationResult({new iPin(1), new iPin(1), new iPin(1)}), "0");
+    EXPECT_EQ(simulator.getSimulationResult({new iPin(0), new iPin(0), new iPin(0)}), "i i i | o\n1 2 3 | 1\n------+--\n0 0 0 | 0");
+    EXPECT_EQ(simulator.getSimulationResult({new iPin(0), new iPin(0), new iPin(1)}), "i i i | o\n1 2 3 | 1\n------+--\n0 0 1 | 0");
+    EXPECT_EQ(simulator.getSimulationResult({new iPin(0), new iPin(1), new iPin(0)}), "i i i | o\n1 2 3 | 1\n------+--\n0 1 0 | 0");
+    EXPECT_EQ(simulator.getSimulationResult({new iPin(0), new iPin(1), new iPin(1)}), "i i i | o\n1 2 3 | 1\n------+--\n0 1 1 | 0");
+    EXPECT_EQ(simulator.getSimulationResult({new iPin(1), new iPin(0), new iPin(0)}), "i i i | o\n1 2 3 | 1\n------+--\n1 0 0 | 1");
+    EXPECT_EQ(simulator.getSimulationResult({new iPin(1), new iPin(0), new iPin(1)}), "i i i | o\n1 2 3 | 1\n------+--\n1 0 1 | 1");
+    EXPECT_EQ(simulator.getSimulationResult({new iPin(1), new iPin(1), new iPin(0)}), "i i i | o\n1 2 3 | 1\n------+--\n1 1 0 | 0");
+    EXPECT_EQ(simulator.getSimulationResult({new iPin(1), new iPin(1), new iPin(1)}), "i i i | o\n1 2 3 | 1\n------+--\n1 1 1 | 0");
 }
 
 TEST(GateTest, TestLoadBroken) {
