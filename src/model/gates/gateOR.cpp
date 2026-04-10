@@ -1,8 +1,6 @@
-//
-// Created by Chino on 2026/4/9.
-//
-
 #include "../../../include/model/gates/gateOR.h"
+#include <system_error>
+
 std::vector<bool> gateOR::getOutput(){
 
     if (this->iPins.size() <  2)
@@ -13,7 +11,7 @@ std::vector<bool> gateOR::getOutput(){
             bool output = _iPin->getOutput()[0];
             result = result || output;
         }
-    }catch(std::invalid_argument& e) {
+    }catch(std::invalid_argument&) {
         throw std::invalid_argument("AndGate can't simulation");
     }
     return {result};

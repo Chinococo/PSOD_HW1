@@ -1,6 +1,3 @@
-//
-// Created by Chino on 2026/4/10.
-//
 #include "../include/utils/FileUtil.h"
 #include <fstream>
 #include <sstream>

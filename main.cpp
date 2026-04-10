@@ -1,14 +1,9 @@
 #include <iostream>
 
-#include <gtest/gtest.h>
-
-
-
+#include "model/control/controller.h"
 using namespace std;
-int StartTest(int argc, char **argv) {
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
-int main(int argc, char **argv) {
-   return StartTest(argc,argv);
+
+int main() {
+    controller controller;
+    controller.process();
 }
