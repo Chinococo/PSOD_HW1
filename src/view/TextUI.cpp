@@ -3,9 +3,12 @@
 //
 
 #include "../../include/view/TextUI.h"
+#include "model/basic/iPin.h"
+#include <iostream>
 
 
 void TextUI::displayMenu() {
+
     std::cout << "\n1. Load logic circuit file" << std::endl;
     std::cout << "2. Simulation" << std::endl;
     std::cout << "3. Display truth table" << std::endl;
@@ -13,7 +16,7 @@ void TextUI::displayMenu() {
     std::cout << "Command: ";
 }
 
-bool TextUI::isFinish() {
+bool TextUI::isFinish() const {
     return isFinished;
 }
 
@@ -27,16 +30,13 @@ void TextUI::processCommand() {
         std::cin >> filePath;
         try {
             if (logic_simulator.load(filePath)) {
-                std::cout << "Circuit: "
-                    << logic_simulator.iPins.size() << " input pins, "
-                    << logic_simulator.oPins.size() << " output pins and "
-                    << logic_simulator.circuit.size() << " gates\n";
+                std::cout<<logic_simulator<<std::endl;
                 isLoad = true;
             }else {
                 std::cout << "File not found or file format error!!" << std::endl;
             }
 
-        } catch (const std::invalid_argument &e) {
+        } catch (const std::invalid_argument &) {
             std::cout << "File not found or file format error!!" << std::endl;
             isLoad = false;
         }
@@ -48,7 +48,7 @@ void TextUI::processCommand() {
         }
         std::vector<Device *> inputValues;
         // 要求使用者輸入每一個 pin 的值
-        for (size_t i = 0; i < logic_simulator.iPins.size(); ++i) {
+        for (size_t i = 0; i < logic_simulator.getIPinSize(); ++i) {
             std::string val;
             while (true) {
                 std::cout << "Please key in the value of input pin " << (i + 1) << ": ";

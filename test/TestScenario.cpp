@@ -1,7 +1,17 @@
 #include <gtest/gtest.h>
 
 #include "model/control/controller.h"
-
+/**
+ * @test 整合情境測試：驗證模擬器控制流程與使用者互動防呆
+ * @details
+ * 本測試模擬使用者操作全流程，包含以下檢查點：
+ * 1. **檔案異常處理**：輸入不存在的路徑或格式錯誤檔案（illegal1.lcf）應報錯。
+ * 2. **狀態機保護**：在未成功載入電路前，執行模擬或顯示真值表應受阻。
+ * 3. **輸入校驗**：模擬時輸入非 0/1 的數值（應觸發防呆提示。
+ * 4. **核心邏輯**：驗證在正確載入 example.lcf 後，模擬結果與真值表內容是否精準。
+ * 5. **生命週期**：輸入指令 4 能否正確結束程式循環。
+ * @see controller::process()
+ */
 TEST(GateTest, TestScenarioFunction) {
     // 1. 準備模擬的使用者輸入 (每一行對應一次 Enter)
     std::stringstream simulatedInput;
@@ -22,10 +32,10 @@ TEST(GateTest, TestScenarioFunction) {
             << "3\n" // Command: 3 (Truth table)
             << "4\n"; // Command: 4 (Exit)
 
-    // 2. 攔截 std::cin 與 std::cout
+    // 2. 攔截 std輸入
     std::stringstream capturedOutput;
-    std::streambuf *originalCin = std::cin.rdbuf(simulatedInput.rdbuf());
-    std::streambuf *originalCout = std::cout.rdbuf(capturedOutput.rdbuf());
+    std::streambuf *originalInput = std::cin.rdbuf(simulatedInput.rdbuf());
+    std::streambuf *originalOutput = std::cout.rdbuf(capturedOutput.rdbuf());
 
     // 3. 執行 Controller
     // 建立物件 (建議變數名稱不要跟類別名稱一樣，這裡用 ctrl)
@@ -33,9 +43,9 @@ TEST(GateTest, TestScenarioFunction) {
 
     ctrl.process();
 
-    // 4. 恢復原來的 cin 與 cout (非常重要！否則後續的其他測試或終端機輸出會壞掉)
-    std::cin.rdbuf(originalCin);
-    std::cout.rdbuf(originalCout);
+    // 4. 恢復 std輸入
+    std::cin.rdbuf(originalInput);
+    std::cout.rdbuf(originalOutput);
 
     // 5. 驗證輸出結果
     std::string actualOutput = capturedOutput.str();

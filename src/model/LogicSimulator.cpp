@@ -14,6 +14,18 @@
 #include "model/gates/gateOR.h"
 #include <set>
 
+/**
+ * @brief 重載串流輸出運算子
+ * 讓 LogicSimulator 可以直接透過 std::cout << ls 輸出
+ */
+std::ostream& operator<<(std::ostream& os, const LogicSimulator& ls) {
+    os << "Circuit: "
+       << ls.iPins.size() << " input pins, "
+       << ls.oPins.size() << " output pins and "
+       << ls.circuit.size() << " gates";
+    return os; // 務必回傳 os 才能支援鏈式呼叫 (如 cout << a << b;)
+}
+
 std::string LogicSimulator::getSimulationResult(std::vector<Device *> _inputs) {
     for (size_t i = 0; i < iPins.size(); i++) {
         iPin *targetPin = dynamic_cast<iPin *>(iPins[i]);
@@ -102,7 +114,7 @@ std::string LogicSimulator::getTruthTable() {
     return truthTable;
 }
 
-bool LogicSimulator::load(std::string path) {
+bool LogicSimulator::load(const std::string& path) {
     /*Init local variable*/
     circuit.clear();
     iPins.clear();
