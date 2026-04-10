@@ -15,7 +15,6 @@
 TEST(GateTest, TestScenarioFunction) {
     // 1. 準備模擬的使用者輸入 (每一行對應一次 Enter)
     std::stringstream simulatedInput;
-
     simulatedInput << "1\n" // Command: 1 (Load file)
             << "C:\\LS\\file_not_exist_or_format_error.lcf\n" // 輸入錯誤路徑
             << "2\n" // Command: 2 (Simulation - 未載入檔案)
@@ -23,7 +22,7 @@ TEST(GateTest, TestScenarioFunction) {
             << "1\n" // Command: 1 (Load file)
             << "C:\\Users\\Chino\\CLionProjects\\PSOD_HW1\\test\\static\\illegal1.lcf\n"
             << "1\n" // Command: 1 (Load file)
-            << "C:\\Users\\Chino\\CLionProjects\\PSOD_HW1\\test\\static\\example.lcf\n" // 輸入正確路徑
+            << PROJECT_ROOT_DIR << "/test/static/example.lcf\n" // 輸入正確路徑
             << "2\n" // Command: 2 (Simulation)
             << "-1\n" // Pin 1: Invalid input (防呆測試)
             << "0\n" // Pin 1: Valid input

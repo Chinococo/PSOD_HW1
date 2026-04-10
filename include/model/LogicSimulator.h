@@ -21,13 +21,13 @@ public:
      * @param _inputs 指定要觀察的輸出引腳集合
      * @return std::string 回傳模擬後的電路狀態字串（例如 "0101"）
      */
-    std::string getSimulationResult(std::vector<Device*> _inputs);
+    [[nodiscard]] std::string getSimulationResult(const std::vector<Device*> &_inputs) const;
 
     /**
      * @brief 產生該電路的真值表 (Truth Table)
      * @return std::string 包含所有輸入組合與對應輸出結果的完整表格字串
      */
-    std::string getTruthTable();
+    [[nodiscard]] std::string getTruthTable() const;;
 
     /**
      * @brief 從指定路徑載入電路定義檔 (.lcf)

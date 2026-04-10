@@ -44,9 +44,12 @@ endif()
 
 # --- 6. 目標二：自動測試執行檔 (Tests) ---
 add_executable(logic_simulator_test ${CORE_SRC} ${TEST_FILES})
+# 使用雙重引號包裹路徑，確保它被注入 C++ 時是一個帶有引號的字串常量
+target_compile_definitions(logic_simulator_test PRIVATE
+        PROJECT_ROOT_DIR="${CMAKE_SOURCE_DIR}"
+)
 target_include_directories(logic_simulator_test PRIVATE include)
 target_link_libraries(logic_simulator_test PRIVATE gtest_main)
-
 
 # --- 7. 測試相關設定 ---
 enable_testing()
