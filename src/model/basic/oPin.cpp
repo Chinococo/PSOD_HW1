@@ -3,6 +3,7 @@
 //
 
 #include "../../../include/model/basic/oPin.h"
+#include <system_error>
 oPin::oPin(Device * _input) {
     this->output = {_input};
 }

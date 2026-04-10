@@ -1,7 +1,3 @@
-//
-// Created by Chino on 2026/4/10.
-//
-
 #ifndef PSOD_HW1_TEXTUI_H
 #define PSOD_HW1_TEXTUI_H
 #include "../model/LogicSimulator.h"

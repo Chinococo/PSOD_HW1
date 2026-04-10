@@ -1,9 +1,5 @@
-//
-// Created by Chino on 2026/4/9.
-//
-
-#ifndef PSOD_HW1_GATEOR_H
-#define PSOD_HW1_GATEOR_H
+#ifndef PSOD_HW1_GATE_OR_H
+#define PSOD_HW1_GATE_OR_H
 #include "../basic/Device.h"
 
 
@@ -17,4 +13,4 @@ public:
 
 
 
-#endif //PSOD_HW1_GATEOR_H
+#endif //PSOD_HW1_GATE_OR_H

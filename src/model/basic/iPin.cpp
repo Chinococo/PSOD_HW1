@@ -3,7 +3,7 @@
 //
 
 #include "../../../include/model/basic/iPin.h"
-
+#include <system_error>
 iPin::iPin(bool _input) {
     this->output = {_input};
 }

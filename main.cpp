@@ -3,7 +3,7 @@
 #include "model/control/controller.h"
 using namespace std;
 
-int main(int argc, char **argv) {
+int main() {
     controller controller;
     controller.process();
 }

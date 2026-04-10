@@ -3,6 +3,7 @@
 //
 
 #include "../../../include/model/gates/gateOR.h"
+#include <system_error>
 std::vector<bool> gateOR::getOutput(){
 
     if (this->iPins.size() <  2)

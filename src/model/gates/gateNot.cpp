@@ -3,8 +3,7 @@
 //
 
 #include "../../../include/model/gates/gateNot.h"
-
-
+#include <system_error>
 
 std::vector<bool> gateNot::getOutput() {
     if (this->iPins.empty())

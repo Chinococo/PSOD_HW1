@@ -1,11 +1,7 @@
-//
-// Created by Chino on 2026/4/9.
-//
-
-#ifndef PSOD_HW1_LOGICSIMULATOR_H
-#define PSOD_HW1_LOGICSIMULATOR_H
+#ifndef PSOD_HW1_LOGIC_SIMULATOR_H
+#define PSOD_HW1_LOGIC_SIMULATOR_H
 #include "model/basic/Device.h"
-#include <string.h>
+#include <string>
 
 
 class LogicSimulator {
@@ -20,4 +16,4 @@ public:
 };
 
 
-#endif //PSOD_HW1_LOGICSIMULATOR_H
+#endif //PSOD_HW1_LOGIC_SIMULATOR_H
