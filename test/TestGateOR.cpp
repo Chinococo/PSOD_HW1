@@ -13,12 +13,15 @@
 TEST(GateTest, ORGateInsufficientInput) {
     gateOR orGate1, orGate2;
     // 只給一個輸入
-    orGate1.addInputPin(new iPin(false));
-    orGate2.addInputPin(new iPin(true));
+    auto p1 = std::make_unique<iPin>(false);
+    auto p2 = std::make_unique<iPin>(true);
+    auto p3 = std::make_unique<iPin>();
+    orGate1.addInputPin(p1.get());
+    orGate2.addInputPin(p2.get());
     // 驗證是否會拋出 std::invalid_argument
     EXPECT_THROW(orGate1.getOutput(), std::invalid_argument);
     EXPECT_THROW(orGate2.getOutput(), std::invalid_argument);
-    orGate2.addInputPin(new iPin());
+    orGate2.addInputPin(p3.get());
     EXPECT_THROW(orGate2.getOutput(), std::invalid_argument);
 }
 
@@ -30,8 +33,10 @@ TEST(GateTest, ORGateInsufficientInput) {
 TEST(GateTest, ORGate2InputTruthTable) {
     for (int i = 0; i < 4; i++) {
         gateOR orGate;
+        std::vector<std::unique_ptr<iPin>> pins;
         for (int j = 0; j < 2; j++) {
-            orGate.addInputPin(new iPin((i >> j) & 1));
+            pins.push_back(std::make_unique<iPin>((i >> j) & 1));
+            orGate.addInputPin(pins.back().get());
         }
 
         int expected = (i == 0) ? 0 : 1; // only 00 binary is false
@@ -46,8 +51,10 @@ TEST(GateTest, ORGate2InputTruthTable) {
 TEST(GateTest, ORGate3InputTruthTable) {
     for (int i = 0; i < 8; i++) {
         gateOR orGate;
+        std::vector<std::unique_ptr<iPin>> pins;
         for (int j = 0; j < 3; j++) {
-            orGate.addInputPin(new iPin((i >> j) & 1));
+            pins.push_back(std::make_unique<iPin>((i >> j) & 1));
+            orGate.addInputPin(pins.back().get());
         }
 
         int expected = (i == 0) ? 0 : 1;
@@ -62,8 +69,10 @@ TEST(GateTest, ORGate3InputTruthTable) {
 TEST(GateTest, ORGate4InputTruthTable) {
     for (int i = 0; i < 16; i++) {
         gateOR orGate;
+        std::vector<std::unique_ptr<iPin>> pins;
         for (int j = 0; j < 4; j++) {
-            orGate.addInputPin(new iPin((i >> j) & 1));
+            pins.push_back(std::make_unique<iPin>((i >> j) & 1));
+            orGate.addInputPin(pins.back().get());
         }
 
         int expected = (i == 0) ? 0 : 1;

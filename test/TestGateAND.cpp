@@ -13,14 +13,17 @@
  */
 TEST(GateTest, AndGateInsufficientInput) {
     gateAND andGate1,andGate2;
+    auto p1 = std::make_unique<iPin>(false);
+    auto p2 = std::make_unique<iPin>(true);
+    auto p3 = std::make_unique<iPin>(); // 無效狀態
     // 只給一個輸入
-    andGate1.addInputPin(new iPin(false));
-    andGate2.addInputPin(new iPin(true));
+    andGate1.addInputPin(p1.get());
+    andGate2.addInputPin(p2.get());
     // 驗證是否會拋出 std::invalid_argument
     EXPECT_THROW(andGate1.getOutput(), std::invalid_argument);
     EXPECT_THROW(andGate2.getOutput(), std::invalid_argument);
     // 有個iPin無法得到數值，驗證是否會拋出 std::invalid_argument
-    andGate2.addInputPin(new iPin());
+    andGate2.addInputPin(p3.get());
     EXPECT_THROW(andGate2.getOutput(), std::invalid_argument);
 }
 
@@ -33,8 +36,10 @@ TEST(GateTest, AndGateInsufficientInput) {
 TEST(GateTest, AndGate2InputTruthTable) {
     for (int i = 0; i < 4; i++) {
         gateAND andGate;
+        std::vector<std::unique_ptr<iPin>> pins;
         for (int j = 0; j < 2; j++) {
-            andGate.addInputPin(new iPin((i >> j) & 1));
+            pins.push_back(std::make_unique<iPin>((i >> j) & 1));
+            andGate.addInputPin(pins.back().get());
         }
         int expected = (i == 3) ? 1 : 0;
         EXPECT_EQ(andGate.getOutput()[0], expected) << "Failed at input combination: " << i;
@@ -50,8 +55,10 @@ TEST(GateTest, AndGate2InputTruthTable) {
 TEST(GateTest, AndGate3InputTruthTable) {
     for (int i = 0; i < 8; i++) {
         gateAND andGate;
+        std::vector<std::unique_ptr<iPin>> pins;
         for (int j = 0; j < 3; j++) {
-            andGate.addInputPin(new iPin((i >> j) & 1));
+            pins.push_back(std::make_unique<iPin>((i >> j) & 1));
+            andGate.addInputPin(pins.back().get());
         }
         int expected = (i == 7) ? 1 : 0;
         EXPECT_EQ(andGate.getOutput()[0], expected) << "Failed at input combination: " << i;
@@ -67,8 +74,10 @@ TEST(GateTest, AndGate3InputTruthTable) {
 TEST(GateTest, AndGate4InputTruthTable) {
     for (int i = 0; i < 16; i++) {
         gateAND andGate;
+        std::vector<std::unique_ptr<iPin>> pins;
         for (int j = 0; j < 4; j++) {
-            andGate.addInputPin(new iPin((i >> j) & 1));
+            pins.push_back(std::make_unique<iPin>((i >> j) & 1));
+            andGate.addInputPin(pins.back().get());
         }
         int expected = (i == 15) ? 1 : 0;
         EXPECT_EQ(andGate.getOutput()[0], expected) << "Failed at input combination: " << i;
