@@ -102,7 +102,9 @@ std::string LogicSimulator::getTruthTable() const{
         }
         // 4. 呼叫你的模擬邏輯並取得結果
         std::string result = getSimulationResult(currentInputs);
-
+        for (Device* ptr : currentInputs) {
+            delete ptr;
+        }
         truthTable += "| " + std::to_string(oPins[0]->getOutput()[0]);
         if (i!=std::pow(2,iPins.size())-1)
             truthTable+="\n";
@@ -113,6 +115,9 @@ std::string LogicSimulator::getTruthTable() const{
 
 bool LogicSimulator::load(const std::string& path) {
     /*Init local variable*/
+    for (Device* d : circuit) delete d;
+    for (Device* d : iPins) delete d;
+    for (Device* d : oPins) delete d;
     circuit.clear();
     iPins.clear();
     oPins.clear();
@@ -170,4 +175,17 @@ bool LogicSimulator::load(const std::string& path) {
         return true;
     }
     return false;
+}
+
+LogicSimulator::~LogicSimulator() {
+    for (Device* d : circuit) {
+        delete d;
+    }
+    for (Device* d : iPins) {
+        delete d;
+    }
+    for (Device* d : oPins) {
+        delete d;
+    }
+
 }

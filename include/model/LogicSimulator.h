@@ -16,6 +16,7 @@ class LogicSimulator {
     std::vector<Device *> oPins;
 
 public:
+    ~LogicSimulator();
     /**
      * @brief 執行電路模擬並獲取結果
      * @param _inputs 指定要觀察的輸出引腳集合

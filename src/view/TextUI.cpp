@@ -8,7 +8,6 @@
 
 
 void TextUI::displayMenu() {
-
     std::cout << "\n1. Load logic circuit file" << std::endl;
     std::cout << "2. Simulation" << std::endl;
     std::cout << "3. Display truth table" << std::endl;
@@ -30,18 +29,16 @@ void TextUI::processCommand() {
         std::cin >> filePath;
         try {
             if (logic_simulator.load(filePath)) {
-                std::cout<<logic_simulator<<std::endl;
+                std::cout << logic_simulator << std::endl;
                 isLoad = true;
-            }else {
+            } else {
                 std::cout << "File not found or file format error!!" << std::endl;
             }
-
         } catch (const std::invalid_argument &) {
             std::cout << "File not found or file format error!!" << std::endl;
             isLoad = false;
         }
-    }
-    else if (command == "2") {
+    } else if (command == "2") {
         if (!isLoad) {
             std::cout << "Pleas load an lcf file, before using this operation." << std::endl;
             return;
@@ -64,6 +61,11 @@ void TextUI::processCommand() {
             }
         }
         std::cout << "Simulation Result:\n" << logic_simulator.getSimulationResult(inputValues) << std::endl;
+        // 假設 inputValues 是一個存放指標的容器，例如 std::vector<Node*>
+        for (const auto val: inputValues) {
+            delete val;
+        }
+        inputValues.clear(); // 建議清空容器，避免懸空指標 (Dangling Pointer)
     } else if (command == "3") {
         if (!isLoad) {
             std::cout << "Please load an lcf file, before using this operation." << std::endl;

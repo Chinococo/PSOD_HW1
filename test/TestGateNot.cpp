@@ -13,10 +13,12 @@
  */
 TEST(GateTest, NotGateInput) {
     gateNot notGate1,notGate2,notGate3,notGate4;
-    // 只給一個輸入
-    notGate2.addInputPin(new iPin(false));
-    notGate3.addInputPin(new iPin(true));
-    notGate4.addInputPin(new iPin());
+    const auto p2 = std::make_unique<iPin>(false);
+    const auto p3 = std::make_unique<iPin>(true);
+    const auto p4 = std::make_unique<iPin>();
+    notGate2.addInputPin(p2.get());
+    notGate3.addInputPin(p3.get());
+    notGate4.addInputPin(p4.get());
     // 驗證是否會拋出 std::invalid_argument
     EXPECT_EQ(notGate2.getOutput()[0], true) << "NotGate is not working";
     EXPECT_EQ(notGate3.getOutput()[0], false) << "NotGate is not working";
