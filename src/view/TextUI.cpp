@@ -28,6 +28,7 @@ void TextUI::processCommand() {
         std::cout << "Please key in a file path: ";
         std::cin >> filePath;
         try {
+            // 測試是否可以正確載入
             if (logic_simulator.load(filePath)) {
                 std::cout << logic_simulator << std::endl;
                 isLoad = true;
@@ -39,18 +40,19 @@ void TextUI::processCommand() {
             isLoad = false;
         }
     } else if (command == "2") {
+        // 要有載入才能進行模擬
         if (!isLoad) {
-            std::cout << "Pleas load an lcf file, before using this operation." << std::endl;
+            std::cout << "Please load an lcf file, before using this operation." << std::endl;
             return;
         }
         std::vector<Device *> inputValues;
-        // 要求使用者輸入每一個 pin 的值
+        // 請求每個iPin的數值
         for (size_t i = 0; i < logic_simulator.getIPinSize(); ++i) {
             std::string val;
             while (true) {
                 std::cout << "Please key in the value of input pin " << (i + 1) << ": ";
                 std::cin >> val;
-
+                // 除了0/1 要跳出警告
                 if (val != "0" && val != "1") {
                     std::cout << "The value of input pin must be 0/1\n";
                     continue;
@@ -61,11 +63,11 @@ void TextUI::processCommand() {
             }
         }
         std::cout << "Simulation Result:\n" << logic_simulator.getSimulationResult(inputValues) << std::endl;
-        // 假設 inputValues 是一個存放指標的容器，例如 std::vector<Node*>
+        // 清除剛剛臨時產生的記憶體
         for (const auto val: inputValues) {
             delete val;
         }
-        inputValues.clear(); // 建議清空容器，避免懸空指標 (Dangling Pointer)
+        inputValues.clear();
     } else if (command == "3") {
         if (!isLoad) {
             std::cout << "Please load an lcf file, before using this operation." << std::endl;

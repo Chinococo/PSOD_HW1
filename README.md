@@ -31,13 +31,14 @@ classDiagram
         # iPins: vector~Device*~
         # output: vector~bool~
         + addInputPin(Device* iPin) void
-        + getOutput()* vector~bool~
+        + getOutput()* vector~bool
     }
 
     class iPin {
         +iPin(bool _input)
         +getOutput() vector~bool~
-    }
+        + operator=(iPin) iPin&
+    }   
 
     class oPin {
         +oPin(Device* _input)
@@ -63,6 +64,10 @@ classDiagram
         +load(string path) bool
         +getSimulationResult(vector~Device*~ inputs) string
         +getTruthTable() string
+        +getHeader() string
+        +getCircuitSize()
+        +getIPinSize()
+        +getOPinSize()
     }
 
     class TextUI {
