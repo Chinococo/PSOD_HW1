@@ -8,7 +8,7 @@ std::vector<bool> gateNot::getOutput() {
 
     try {
         const bool result = !this->iPins[0]->getOutput()[0];
-        return std::vector<bool>{result};
+        return std::vector{result};
     } catch (std::invalid_argument &) {
         throw std::invalid_argument("AndGate can't simulation");
     }

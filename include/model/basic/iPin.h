@@ -5,7 +5,7 @@
 class iPin : public Device {
     std::vector<bool> output;
 public:
-    iPin():Device(){};
+    iPin():Device(){}
     explicit iPin(bool _input);
     std::vector<bool> getOutput() override;
     iPin& operator=(const iPin&);

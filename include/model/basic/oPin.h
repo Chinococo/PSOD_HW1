@@ -5,7 +5,7 @@
 class oPin : public Device {
     std::vector<Device *> output;
 public:
-    oPin():Device(){};
+    oPin():Device(){}
     explicit oPin(Device *);
     std::vector<bool> getOutput() override;
 };

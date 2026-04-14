@@ -54,7 +54,7 @@ std::string LogicSimulator::getHeader() const {
 
 std::string LogicSimulator::getSimulationResult(const std::vector<Device *> &_inputs) const {
     for (size_t i = 0; i < iPins.size(); i++) {
-        auto targetPin = dynamic_cast<iPin *>(iPins[i]);
+        const auto targetPin = dynamic_cast<iPin *>(iPins[i]);
         if (const iPin *sourcePin = dynamic_cast<iPin *>(_inputs[i]); targetPin && sourcePin) {
             *targetPin = *sourcePin;
         }
@@ -119,8 +119,7 @@ bool LogicSimulator::load(const std::string &path) {
     std::ifstream inFile;
     inFile.open(path, std::ios::in);
     if (inFile) {
-        int NI, NG;
-        if (inFile >> NI >> NG) {
+        if (int NI,NG; inFile >> NI >> NG) {
             for (int i = 0; i < NI; i++)
                 iPins.push_back(new iPin(false));
             std::vector<double> pins;
@@ -173,13 +172,13 @@ bool LogicSimulator::load(const std::string &path) {
 }
 
 LogicSimulator::~LogicSimulator() {
-    for (Device *d: circuit) {
+    for (const Device *d: circuit) {
         delete d;
     }
-    for (Device *d: iPins) {
+    for (const Device *d: iPins) {
         delete d;
     }
-    for (Device *d: oPins) {
+    for (const Device *d: oPins) {
         delete d;
     }
 }
