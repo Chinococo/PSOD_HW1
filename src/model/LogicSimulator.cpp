@@ -40,7 +40,7 @@ std::string LogicSimulator::getHeader() const {
     }
     result += "|";
     for (size_t i = 0; i < oPins.size(); i++) {
-        result +=  " "+std::to_string(i + 1);
+        result += " " + std::to_string(i + 1);
     }
     result += "\n";
     for (int i = 0; i < (iPins.size() + oPins.size()) * 2 + 1; ++i) {
@@ -63,14 +63,14 @@ std::string LogicSimulator::getSimulationResult(const std::vector<Device *> &_in
 
     // 寫上輸入
     for (const auto iPin: iPins) {
-        result +=  std::to_string(iPin->getOutput()[0])+" ";
+        result += std::to_string(iPin->getOutput()[0]) + " ";
     }
 
-    result += "| ";
+    result += "|";
     // 寫上輸出
     if (!oPins.empty()) {
         for (const auto oPin: oPins) {
-            result += std::to_string(oPin->getOutput()[0]);
+            result += " " + std::to_string(oPin->getOutput()[0]);
         }
     }
 
@@ -94,7 +94,12 @@ std::string LogicSimulator::getTruthTable() const {
         for (const Device *ptr: currentInputs) {
             delete ptr;
         }
-        truthTable += "| " + std::to_string(oPins[0]->getOutput()[0]);
+        truthTable += "|" ;
+        if (!oPins.empty()) {
+            for (const auto oPin: oPins) {
+                truthTable += " " + std::to_string(oPin->getOutput()[0]);
+            }
+        }
         if (i != std::pow(2, iPins.size()) - 1)
             truthTable += "\n";
     }

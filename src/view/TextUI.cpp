@@ -42,7 +42,7 @@ void TextUI::processCommand() {
     } else if (command == "2") {
         // 要有載入才能進行模擬
         if (!isLoad) {
-            std::cout << "Pleas load an lcf file, before using this operation." << std::endl;
+            std::cout << "Please load an lcf file, before using this operation." << std::endl;
             return;
         }
         std::vector<Device *> inputValues;
@@ -63,7 +63,7 @@ void TextUI::processCommand() {
             }
         }
         std::cout << "Simulation Result:\n" << logic_simulator.getSimulationResult(inputValues) << std::endl;
-        // 清除輸入所新增的記憶體
+        // 清除剛剛臨時產生的記憶體
         for (const auto val: inputValues) {
             delete val;
         }

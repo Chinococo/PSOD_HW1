@@ -43,6 +43,7 @@ TEST(GateTest, TestLoadExample1Simulation) {
     EXPECT_EQ(simulator.getSimulationResult({p1.get(), p1.get(), p0.get()}), "i i i | o\n1 2 3 | 1\n------+--\n1 1 0 | 0");
     EXPECT_EQ(simulator.getSimulationResult({p1.get(), p1.get(), p1.get()}), "i i i | o\n1 2 3 | 1\n------+--\n1 1 1 | 0");
 }
+
 /**
     讀取格式錯誤的 .lcf 檔案是否會正確抱錯
  */

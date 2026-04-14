@@ -14,6 +14,9 @@ std::vector<bool> iPin::getOutput() {
 }
 
 iPin &iPin::operator=(const iPin &other) {
-    this->output = {other.iPins[0]->getOutput()[0]};
+    // 檢查不要自己複製自己
+    if (this != &other) {
+        this->output = other.output;
+    }
     return *this;
 }
