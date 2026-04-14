@@ -2,7 +2,7 @@
 #include <system_error>
 
 std::vector<bool> gateOR::getOutput(){
-
+    // 輸入不足
     if (this->iPins.size() <  2)
         throw std::invalid_argument("AndGate doesn't have enough input signal");
     bool result = false;
